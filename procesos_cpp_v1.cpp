@@ -16,16 +16,14 @@ int main()
 	pid_t pid = fork();
 
 	switch(pid){
-	  case -1:
+	  case -1: // ERROR
 		       perror("fork");
 		       exit(EXIT_FAILURE);
-	  case 0:
-	           cout << "Child  PID: " << getpid()
-			        << endl;
+	  case 0: // HIJO
+	           cout << "Child  PID: " << getpid() << endl;
 				break;
-	  default:
-		       cout << "Father PID: " << getpid()
-			        << endl;
+	  default: // PADRE
+		       cout << "Father PID: " << getpid() << endl;
 
 	}
 	return 0;

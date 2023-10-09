@@ -1,8 +1,3 @@
-# Practicas_cursos
-Este proyecto contiene múltiples ejemplos de programas sencillos para
-ser usados en los cursos:
+# Practica No. 1
 
-1. Análisis y Diseño de Algoritmos
-2. Análisis y Diseño de Algoritmos concurrentes y distribuidos
-3. Diseño de Sistemas Operatvos
-
+Esta carpeta contiene las tareas de Procesos en diferentes lenguajes.

@@ -1,6 +1,6 @@
 /*
    Description
-      Process and  timers.
+      Process and timers.
    Compile
       $ gcc -o procesos_v3 procesos_v3.c
 */

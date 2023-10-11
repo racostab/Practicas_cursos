@@ -1,10 +1,7 @@
 /*
    C++ Program to demonstrate tthe use of Fork.
-   Instalacion:
-      $ sudo apt-get update
-	  $ sudo apt-get install build-essential 
    Compilar
-      $ g++ -o procesos_cpp_v2 procesos_cpp_v2.cpp
+      $ g++ -o procesos_v2 procesos_v2.cpp
 */
 #include <iostream>
 #include <unistd.h>

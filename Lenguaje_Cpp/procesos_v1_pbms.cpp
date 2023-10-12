@@ -1,7 +1,7 @@
 /*
    C++ Program to demonstrate tthe use of Fork.
    Compilar
-      $ g++ -o procesos_v2 procesos_v2.cpp
+      $ g++ -o procesos_v1_pbms procesos_v1_pbms.cpp
 */
 #include <iostream>
 #include <unistd.h>

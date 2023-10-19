@@ -1,8 +1,8 @@
 /*
    Description
-      Process testing sleep and wait.
+      Process testing sleep and waitpid.
    Compile
-      $ gcc -o procesos_v4 procesos_v4.c
+      $ gcc -o procesos_v4_waitpid procesos_v4_waitpid.c
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +11,7 @@
 
 void hijo();
 
-int main()
+int main(void)
 {
   pid_t pid;
   int status;

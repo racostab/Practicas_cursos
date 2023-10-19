@@ -1,8 +1,10 @@
 /*
    Description
-      Several process with Tabs.
+      Process and timers.
+      syscalls: fork, getpid
+                malloc, printf
    Compile
-      $ gcc -o procesos_v3 procesos_v3.c
+      $ gcc -o procesos_v3.1 procesos_v3.1.c
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,12 +14,23 @@
 char *tabul(int);
 void hijo(int);
 
-int main()
+int main(int argc, char**argv)
 {
   pid_t pid;
-  int nh;
+  int NP, cnt;
 
-  for(nh=1; nh<=5; nh++)
+  if(argc<2){
+     printf("Parametros: numero_de_procesos\n");
+     return 0;
+  }
+
+  NP=atoi(argv[1]);
+  if( NP <= 0 ){
+     printf("El parametro debe ser un numero positivo mayor que cero\n");
+     return 0;
+  }
+
+  for(cnt=1; cnt<=NP; cnt++)
   {
      pid = fork();
 	 switch(pid){
@@ -26,7 +39,7 @@ int main()
 	 	       exit(1);
 	   case 0: // HIJO
 	 	       //printf("Child PID: %d\n", getpid() );
-	           hijo(nh);
+	           hijo(cnt);
 	 	       exit(1);
 	   default: // PADRE
 	 	       //printf("Father PID: %d\n", getpid() );
@@ -52,7 +65,6 @@ char *tabul(int id)
     if(id != 1){
 	   for(cnt=1; cnt<id; cnt++){
 	      sprintf(str, "%s\t", str);
-		  // str += "\t";
 	   }
 	}
 	return str;

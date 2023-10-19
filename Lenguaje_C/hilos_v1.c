@@ -22,14 +22,11 @@ int main (int argc, char **argv)
      return 1;
    }
    
-   usleep(1);
    pid = getpid();
    while(1){
      printf("Tm=%d Th=%d \n", pid, (int)tid );
 	 sleep(5);
    }
-   // usleep (1000000);
-
 }
 
 void thread(void)

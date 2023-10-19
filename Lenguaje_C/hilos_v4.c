@@ -23,8 +23,9 @@ int main (int argc, char **argv)
      return 1;
    }
    
-   usleep(1);
    pid = getpid();
+   
+   // El padre espera al hilo hijo
    pthread_join(tid, NULL);
    printf("Tm=%d Th=%d \n", pid, (int)tid );
 

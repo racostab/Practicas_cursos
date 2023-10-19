@@ -1,6 +1,7 @@
 /*  
    Description
       Process using functions.
+	  syscall: fork
    Compile
       $ gcc -o procesos_v2 procesos_v2.c
 */

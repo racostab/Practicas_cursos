@@ -1,6 +1,7 @@
 /*
    Description
       C Program to demonstrate the use of Fork.
+	  syscalls: fork
    Compile
       $ gcc -o procesos_v1 procesos_v1.c
 */

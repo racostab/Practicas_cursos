@@ -4,7 +4,6 @@
    Compile
       $ gcc -w -pthread -o hilos_v1 hilos_v1.c
 */
-
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
@@ -43,7 +42,7 @@ void thread(void)
    unsigned tid = pthread_self();
 
    while(1){
-	 sleep(5);
+	  sleep(5);
      printf("\t\t\t Th=%d Thh=%d\n", pid, (int)tid);
    }
    // pthread_exit(NULL);

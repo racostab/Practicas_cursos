@@ -21,13 +21,13 @@ int main (int argc, char **argv)
 
    status = pthread_create(&tid1, NULL, (void *)&thread, NULL);
    if( status < 0 ){
-     printf("Error en la creacion del Thread\n");
+     printf("Error en la creacion del Thread 1\n");
      return 1;
    }
 
    status = pthread_create(&tid2, NULL, (void *)&thread, NULL);
    if( status < 0 ){
-     printf("Error en la creacion del Thread\n");
+     printf("Error en la creacion del Thread 2\n");
      return 1;
    }
 

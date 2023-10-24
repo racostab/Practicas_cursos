@@ -1,0 +1,18 @@
+Command to prove the concept of pipes in files
+#============================================================
+These are the instructions to be executed in 2 terminals:
+
+--------------------------------------------------------------
+Terminal 1
+
+$ mkfifo mi_pipe
+$ cat mi_pipe
+  ... Here will apear the text typed in the other terminal ...
+       until the carry-return is entered.
+--------------------------------------------------------------
+$ cat > mi_pipe  
+hello, world!
+bye, bye.
+<Control-C>
+--------------------------------------------------------------
+

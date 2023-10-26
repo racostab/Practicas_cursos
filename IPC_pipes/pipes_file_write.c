@@ -32,10 +32,11 @@ int main()
         ascii++;
         if( ascii == 40) ascii=30;
     }
-    write(fd, buffer, size*50);
-
+    buffer[50] = '\0';
     printf("Writing to the pipe: %d bytes\n", 50);
     printf("%s\n", buffer);
+
+    write(fd, buffer, size*50);
 
     close(fd);
     unlink(pipeName);

@@ -1,3 +1,12 @@
+/*
+   Description
+      C Program for Shared Memory (Reader Process) 
+   Compile
+      $ gcc -o shmem_read_v1 shmem_read_v1.c
+
+      $ ipcs
+      $ ipcs -m o -M
+*/
 #include <sys/ipc.h> 
 #include <sys/shm.h> 
 #include <stdio.h>
@@ -7,29 +16,26 @@ int main (void)
   int *vector, shmid;
   key_t llave;
 
-     // 1. Crear llave
-     //            path     id
-      llave = ftok("shared", 2019);
-      printf("Paso 1\n");
+    printf("1. Create key\n");
+    llave = ftok("shared", 2019);
 
-    // 2. Regresar la zona de memoria o la crea. shmget returns an identifier in shmid 
-      shmid = shmget(llave, 25*sizeof(int), IPC_CREAT | 0777);
-      printf("Paso 2\n");
+    printf("2. Read or create memory zone pointer\n");
+    // shmget returns an identifier in shmid 
+    shmid = shmget(llave, 25*sizeof(int), IPC_CREAT | 0777);
      
-     // 2. Ligar memoria al espacio del Usr
-      vector = (int *)shmat(shmid, (void *)0, 0);
-      printf("Paso 3\n");
+    printf("3. Link memory zone to user space\n");
+    vector = (int *)shmat(shmid, (void *)0, 0);
      
-     // 3. Utilización
-      printf("Leyendo de la memoria compartida (arreglo): %d\n", vector[10]);
+    // 3. Utilización
+    printf("4. Read the shared memory\n");
+    printf("     array[10]: %d\n", vector[10]);
      
-     // 4. Desligar
-      shmdt(vector);
-      printf("Paso 4\n");
+     printf("5. Detach memory\n");
+     shmdt(vector);
      
-     // 5. Borrar zona de memoria
-      shmctl(shmid, IPC_RMID, 0);
-      printf("Paso 5\n");
+    // 6. Delete memory zone
+    // printf("6. Delete memory\n");
+    // shmctl(shmid, IPC_RMID, 0);
 
 }
 

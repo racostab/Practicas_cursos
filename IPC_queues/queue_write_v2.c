@@ -2,10 +2,7 @@
    Description
       C Program for Message Queue (Writer Process) 
    Compile
-      $ gcc -o queue_write_v1 queue_write_v1.c
-
-      $ ipcs -Q Info
-      $ ipcs -q List of queues
+      $ gcc -o queue_write_v2 queue_write_v2.c
 */
 #include <stdio.h> 
 #include <sys/ipc.h> 
@@ -24,21 +21,16 @@ int main()
     int msgid; 
     char mesg_text[100]; 
   
-    printf("1. Create key\n");
     key = ftok("queue", 65);
-     
-    printf("2. Create message queue\n");
     msgid = msgget(key, 0666 | IPC_CREAT); 
     message.mesg_type = 1; 
   
-    printf("3. Reading the message from keyboard: \n");
+    printf("Message: ");
     scanf("%s", mesg_text); 
     strcpy(message.mesg_text, mesg_text);
-    printf("  msg: %s\n", mesg_text); 
   
-    printf("4. Sendding message\n");
     msgsnd(msgid, &message, sizeof(message), 0); 
-    printf("   msg: %s\n", message.mesg_text); 
+    printf("Message send.\n"); 
   
     return 0; 
 }

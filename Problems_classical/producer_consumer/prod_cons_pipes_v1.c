@@ -1,61 +1,99 @@
 /*
    Description
-      .
+      Producer-Consumer problem with Pipes.
    Compile
-      $ gcc -w -pthread -o hilos_productor_consumidor_v1 hilos_productor_consumidor_v1.c
+      $ gcc -o prod_cons_pipes_v1 prod_cons_pipes_v1.c
+      $ prod_cons_pipes_v1
+
+      Other terminal:
+	  $ pkill prod_cons_pipes_v1
 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <pthread.h>
+#include <string.h>
 
-#define	MAX  8
-int bfrQ	[MAX];
-int i;
-
-void *consumidor(void *unused);
-void *productor(void *unused);
+int tuberia[2];
+void consumidor();
+void productor();
 
 int main ()
 {	
+  pid_t pid;
+  int error;
 
+    error = pipe(tuberia);
+    if( error < 0 ){
+      printf("Error en la creacion del pipe\n");
+      return 1;
+    }
+
+    // Productor
+    pid = fork();
+	switch(pid){
+	  case -1: // ERROR
+		       perror("fork");
+		       exit(1);
+	  case 0:  // HIJO
+	           productor();
+		       exit(1);
+	  default: // PADRE
+		       ; 
+	}
+
+    // Consumidor
+    pid = fork();
+	switch(pid){
+	  case -1: // ERROR
+		       perror("fork");
+		       exit(1);
+	  case 0:  // HIJO
+	           consumidor();
+		       exit(1);
+	  default: // PADRE
+		       ; 
+	}
+	printf("Father ends. PID: %d\n", getpid() );
+	// No es necesario esperar a los hijos, el pipe no se destruye
+	//sleep(15);
+	return 0;
 }
 
 
-void *consumidor(void *unused){
-	int i= MAX -1;
-	int x;
-	printf("hilo 1....\n");
-	while(1){ 
-		if (bfrQ[0]==0){
-			i= MAX -1;
-			printf("*max %d\n",bfrQ[i]);
-			for (x=0;x<MAX;x++){
-				bfrQ[x]=0;
-			}
-			usleep(100000);
-		}
-		else{
-			printf("  -->%d *%d \n",bfrQ[i],i);
-			bfrQ[i]=0;
-			i--;
-		}
+void consumidor()
+{
+  int bytes;
+  char *buf = calloc(100, sizeof(char));
+
+	printf("\t\tConsumidor %d\n", getpid() );
+
+    while(1){ 
+       sleep(3);
+       bytes = read(tuberia[0], buf, 100);
+       printf("\t\t\t%s => C\n", buf);
+	   fflush(stdout);
 	}
 }
 
-void *productor(void *unused){
-	int i= 0;
-	printf("hilo 2....\n");
-	while(1){
-		if(bfrQ[MAX-1]!=0){
-			i=0;
-			printf("*min  %d\n",bfrQ[i]);
-			usleep(100000);
-		}
-		else{
-			bfrQ[i]=i+1;
-			printf("<--- %d *%d \n",bfrQ[i],i);
-			i++;
-		}
-	}
+void productor()
+{
+  int bytes, tam, cnt;
+  char *buf = calloc(100, sizeof(char));
+
+	printf("Productor %d\n", getpid() );
+
+    cnt=1;
+    while(1){
+	   // OPC 1
+       // strcpy(buf, "abcde");
+	   // OPC 2
+	   sprintf(buf, "%d", cnt);
+       sleep(1);
+
+	   tam = strlen(buf);
+       write(tuberia[1], buf, tam);
+       printf("P => %s\n", buf);
+	   fflush(stdout);
+       cnt++;
+    }
 }

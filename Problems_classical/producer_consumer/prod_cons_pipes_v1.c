@@ -17,10 +17,21 @@ int tuberia[2];
 void consumidor();
 void productor();
 
-int main ()
+int timer_prod, timer_cons;
+
+int main(int argc, char**argv)
 {	
   pid_t pid;
   int error;
+
+    if (argc < 2) {
+       timer_prod = 1;
+	   timer_cons = 3;
+	}else if (argc >= 3 ) {
+       timer_prod = atoi(argv[1]);
+	   timer_cons = atoi(argv[2]);
+	}
+    printf("Timers Prod: %d Cons: %d \n", timer_prod, timer_cons);
 
     error = pipe(tuberia);
     if( error < 0 ){
@@ -68,7 +79,7 @@ void consumidor()
 	printf("\t\tConsumidor %d\n", getpid() );
 
     while(1){ 
-       sleep(3);
+       sleep(timer_cons);
        bytes = read(tuberia[0], buf, 100);
        printf("\t\t\t%s => C\n", buf);
 	   fflush(stdout);
@@ -88,7 +99,7 @@ void productor()
        // strcpy(buf, "abcde");
 	   // OPC 2
 	   sprintf(buf, "%d", cnt);
-       sleep(1);
+       sleep(timer_prod);
 
 	   tam = strlen(buf);
        write(tuberia[1], buf, tam);

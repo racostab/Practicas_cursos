@@ -15,5 +15,3 @@ match pid : # Switch valido solo para python ver >= 3.1
    case  _:
            print("Father PID = {} PPID = {}".format(os.getpid(), os.getppid()) )
 
-#	time.sleep(0.030);
-#	os.waitpid(childpid, 0);

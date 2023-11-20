@@ -30,14 +30,20 @@ int main()
         return 2; 
     }
 
-    printf("3. Locking \n");
+    // Initialized with a value of 1
+    if (semctl(semid, 0, SETVAL, 1) < 0) {
+        perror("semctl");
+        return 1;
+    }
+
+    printf("3. Trying to locking \n");
     if (semop(semid, &sb, 1) == -1){ 
         perror("semop");
         return 3; 
     }
     // ------------------------------------
     // Critical region 
-    printf("4. Inside Critical region \n");
+    printf("4. Locked. Inside Critical region \n");
     sleep(3);
     // ------------------------------------
 
@@ -50,6 +56,12 @@ int main()
     }
 
     printf("6. End \n");
+    // remove it
+    if (semctl(semid, 0, IPC_RMID, arg) == -1) 
+    {
+        perror("semctl");
+        exit(1); 
+    }
 
 	return 0; 
 } 

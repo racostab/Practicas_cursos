@@ -1,0 +1,17 @@
+
+     Practicas con sockets
+
+Al hacer esta practicas es importante comprobar su funcionamiento
+con otros comandos como netstsat y lsof. Para Linux se tienen los
+siguientes ejemplos.
+
+1. Netstat
+
+  $ netstat -an
+  $ netstat -an | grep PORT
+
+2. Lsof
+
+  $ lsof -i -n
+
+

@@ -1,7 +1,7 @@
 #
 #
 #
-# $ python3 echo-client.py
+# $ python3 tcp_inet_v1_echo-clt.py
 #
 import socket
 

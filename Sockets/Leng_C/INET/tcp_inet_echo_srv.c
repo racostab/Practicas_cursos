@@ -71,7 +71,8 @@ int main(int argc, char const* argv[])
 	len = read(new_socket, buffer, 1024 - 1); // subtract 1 for the null
 	printf("6a. Message received: %s\n", buffer);
 
-	send(new_socket, message, strlen(message), 0);
+	//send(new_socket, message, strlen(message), 0);
+	send(new_socket, buffer, strlen(buffer), 0);
 	printf("6b. Message sent\n");
 
 	close(new_socket);

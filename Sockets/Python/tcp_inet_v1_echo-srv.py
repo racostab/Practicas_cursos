@@ -1,7 +1,7 @@
 #
 #
 #
-# $ python3 echo-server.py
+# $ python3 tcp_inet_v1_echo-srv.py
 #
 import socket
 
